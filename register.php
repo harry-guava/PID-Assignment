@@ -12,7 +12,7 @@ if(isset($_POST["addsub"]))
         $_SESSION["addpswd"]= $addpswd;
         require("connect.php");
         $sql = <<<add
-         insert into member (`user`,paswd,`username`) values
+         insert into member (`use`,paswd,`username`) values
          ('$adus','$adname','$adpswd');
         add;
         mysqli_query($link,$sql);
@@ -58,13 +58,13 @@ if(isset($_POST["cancel"]))
 
 <form method = "post">
   <div class="form-group row">
-    <label for="text2" class="col-2 col-form-label">暱稱</label> 
+    <label for="text2" class="col-2 col-form-label" style="background-color:#FFE4C4">暱稱</label> 
     <div class="col-3">
       <input id="addname" name="addname" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group row">
-    <label for="text2" class="col-2 col-form-label" style="color:yellow;background-color:blue">帳號</label> 
+    <label for="text2" class="col-2 col-form-label" style="color:yellow;background-color:#48D1CC">帳號</label> 
     <div class="col-4">
       <input id="addacc" name="addacc" type="text" class="form-control">
     </div>
@@ -72,7 +72,7 @@ if(isset($_POST["cancel"]))
     </div>
   </div>
   <div class="form-group row">
-    <label for="text1" class="col-2 col-form-label" style="color:red;background-color:yellow">密碼</label> 
+    <label for="text1" class="col-2 col-form-label" style="color:red;background-color:#98FB98">密碼</label> 
     <div class="col-4 ">
       <input id="addpswd" name="addpswd" type="text" class="form-control">
     </div>

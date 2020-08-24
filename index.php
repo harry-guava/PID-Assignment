@@ -9,7 +9,7 @@ if (isset($_POST["btnlogin"]))
         $_SESSION["passWord"] = $passWord;
         require("connect.php");
         $sql = <<< compare
-          select * from member where user = '$userName' and paswd = '$passWord'; 
+          select * from member where use = '$userName' and paswd = '$passWord'; 
         compare;
         mysqli_query($link,$sql);
         $result = mysqli_query($link,$sql);
