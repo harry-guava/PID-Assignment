@@ -9,7 +9,7 @@ if (isset($_POST["btnlogin"]))
         $_SESSION["passWord"] = $passWord;
         require("connect.php");
         $sql = <<< compare
-          select * from member where use = '$userName' and paswd = '$passWord'; 
+          select * from member where muse = '$userName' and paswd = '$passWord'; 
         compare;
         mysqli_query($link,$sql);
         $result = mysqli_query($link,$sql);
@@ -46,7 +46,7 @@ if(isset($_POST["btnreg"]))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>會員登入</title>
     <style>
       .site
       {
