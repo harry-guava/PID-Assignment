@@ -13,7 +13,7 @@ if(isset($_POST["addsub"]))
         require("connect.php");
         $sql = <<<add
          insert into member (`use`,paswd,`username`) values
-         ('$adus','$adname','$adpswd');
+         ('$adus','$adpswd','$adname');
         add;
         mysqli_query($link,$sql);
         //echo "$adname<br>$adus<br>$adpswd<br>";
