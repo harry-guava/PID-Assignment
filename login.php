@@ -20,18 +20,19 @@ if (isset($_POST["btnlogin"])) {
         //echo $rownum;
 
         $sql2 = <<<server
-         select * from severlist where sername = '$userName' and serpaswd = '$passWord';
+         select * from serverlist where sername = '$userName' and serpaswd = '$passWord';
         server;
         $serresult =mysqli_query($link,$sql2);
+        var_dump($serresult);
         $sercheck = mysqli_num_rows($serresult);
         if($sercheck!=0){
           $_SESSION["check"]=1;
         }
-        
+
         if ($rownum != 0) {
             if ($_SESSION["login"] == 0) {
-                header("location: page.php");
-                exit();
+                //header("location: index.php");
+                //exit();
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("你已經被加入黑名單")';
