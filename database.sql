@@ -13,15 +13,6 @@ create table member
     `login` int not null default 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table res
-(
-    `resId` int auto_increment primary key,
-    `price` int,
-    `stock`int,
-    `resname` varchar(30) NOT NULL
-    
-)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 create table buylist
 (
     `listId` int auto_increment primary key,
@@ -33,11 +24,15 @@ create table buylist
      constraint fk_member_buylist foreign key (memberId)
      references member(memberId)
      on update cascade
-     on delete cascade,
-     constraint fk_res_buylist foreign key (resId)
-     references res(resId)
+     on delete cascade
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+create table serverlist
+(
+    serverId int auto_increment primary key,
+    sername varchar(30) NOT NULL,
+    serpaswd varchar(30) NOT NULL
+);
 alter table `member`
 add constraint fk_buylist_member foreign key (listId)
     references buylist(listId)
@@ -49,8 +44,23 @@ add constraint fk_buylist_member foreign key (listId)
 insert into member (muse,paswd,username) values
 ('apple','1234','王小明'),('wang','4232','大平台');
 
+
+insert into serverlist (serverId,sername,serpaswd) values
+(1,'guava','0507'),(2,'alan','1207');
+
+
+
+
+
+
 insert into res (price,stock,resname) values
 (30,100,'蘋果'),(50,70,'香蕉');
 
--- insert into buylist(resname,quantity,totol) values
--- ()
+create table res
+(
+    `resId` int auto_increment primary key,
+    `price` int,
+    `stock`int,
+    `resname` varchar(30) NOT NULL
+    
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

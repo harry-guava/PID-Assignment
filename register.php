@@ -2,9 +2,9 @@
 session_start();
 if(isset($_POST["addsub"]))
 {
-    $adname = $_POST["addname"];
     $adus = $_POST["addacc"];
     $adpswd = $_POST["addpswd"];
+    $adname = $_POST["addname"];
     if(trim(($adname&&$adus&&$adpswd)!=""))
     {
         $_SESSION["adname"]= $adname;
@@ -12,7 +12,7 @@ if(isset($_POST["addsub"]))
         $_SESSION["addpswd"]= $addpswd;
         require("connect.php");
         $sql = <<<add
-         insert into member (`use`,paswd,`username`) values
+         insert into member (`muse`,paswd,`username`) values
          ('$adus','$adpswd','$adname');
         add;
         mysqli_query($link,$sql);
@@ -20,9 +20,6 @@ if(isset($_POST["addsub"]))
         echo "<script type='text/javascript'>alert('建立成功,開始享受你的購物之旅吧！');</script>";
         
         header("refresh:0; url= index.php");
-    
-        
-        
     }
     else
     {
@@ -36,12 +33,7 @@ if(isset($_POST["cancel"]))
 {
     header("location: index.php");
 }
-
-
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

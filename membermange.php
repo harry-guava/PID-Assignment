@@ -4,12 +4,12 @@
    
    $man ="Select * from member";
    $result = mysqli_query($link,$man);
-   
-   
-
-
-
-
+   $testid =mysqli_query($link,$man);
+   $rowid = mysqli_fetch_assoc($testid);
+   //var_dump($result);
+   $_SESSION["login"]= $rowid["login"];
+   $login=$_SESSION["login"];
+   //echo $login;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,6 @@
     <title>會員管理</title>
 </head>
 <body>
-<form method ="post">
 <table class="table table-dark">
     <thead>
       <tr>
@@ -42,7 +41,8 @@
         <td><?= $row["listId"]?></td>
         <td>
             <span>
-                <a href="./ban.php?id=<?= $row["memberId"]?>" class="btn btn-outline-success btn-sm">封鎖</a>
+                <a href="./ban.php?id=<?= $row["memberId"]?>" class="btn btn-outline-success btn-sm">
+               <?php if($row["login"]==0){ echo "封鎖";}else{echo"解鎖";}?></a>
                 <a href="./buylist.php?id=<?= $row["memberId"]?>" class="btn btn-outline-danger btn-sm">訂單管理</a>
             </span>
         </td>
@@ -50,6 +50,5 @@
       <?php } ?>
     </tbody>
   </table>
-</form>
 </body>
 </html>

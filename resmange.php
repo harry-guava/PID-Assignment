@@ -7,10 +7,6 @@
 
    mem;
    mysqli_query($link,$man);
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
