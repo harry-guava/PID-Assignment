@@ -27,6 +27,7 @@ if (isset($_POST["btnlogin"])) {
         if($sercheck!=0){
           $_SESSION["check"]=1;
         }
+        
         if ($rownum != 0) {
             if ($_SESSION["login"] == 0) {
                 header("location: page.php");

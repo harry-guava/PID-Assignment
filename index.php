@@ -30,17 +30,6 @@
       line-height:105px;
       background-color:#faffd1;
     }
-    .form2
-    {
-      margin-top:0px;
-    }
-    .form3
-    {
-      height:200px;
-      margin-top:0px auto;
-      line-height:100px;
-      background-color: #a9fcab;
-    }
     .fl
     {
       position:absolute;
@@ -60,10 +49,10 @@
 <div class="header">
   <h1>黑心購物網</h1>
     <form method="post">
-      <a href = "login.php" class = "btn btn-outline-info btn-lg fl">登入</a>
-      <?php if(isset($_SESSION["check"])){?>
+      <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin">登入</a>
+      <?php if(isset($_POST["btnlogin"])){ if($_SESSION["check"]==1){?>
       <a href = "membermange.php" class = "btn btn-outline-info btn-lg fm">會員管理</a>
-      <?php }?>
+      <?php }}?>
     </form>
 <div>
 <div>
