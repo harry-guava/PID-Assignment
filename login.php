@@ -1,8 +1,14 @@
 <?php
 session_start();
+if($_SESSION["userName"])
+{
+  session_destroy();
+}
 if (isset($_POST["btnlogin"])) {
     $userName = $_POST["txtuserName"];
     $passWord = $_POST["txtpassWord"];
+    $sername = $_POST["txtuserName"];
+    $serpass = $_POST["txtpassWord"];
     if (trim(($userName && $passWord) != "")) {
         $_SESSION["userName"] = $userName;
         $_SESSION["passWord"] = $passWord;
@@ -20,19 +26,24 @@ if (isset($_POST["btnlogin"])) {
         //echo $rownum;
 
         $sql2 = <<<server
-         select * from serverlist where sername = '$userName' and serpaswd = '$passWord';
+         select * from serverlist where sername = '$sername' and serpaswd = '$serpass';
         server;
-        $serresult =mysqli_query($link,$sql2);
-        var_dump($serresult);
+        $serresult = mysqli_query($link, $sql2);
+        //var_dump($serresult);
         $sercheck = mysqli_num_rows($serresult);
-        if($sercheck!=0){
-          $_SESSION["check"]=1;
+        if ($sercheck != 0) {
+            $_SESSION["check"] = 1;
         }
-
-        if ($rownum != 0) {
+        //echo $sercheck;
+        //echo $_SESSION["check"];
+        if (($rownum | $sercheck) != 0) {
+          if($rownum!=0)
+          {
+            $_SESSION["check"]=0;
+          }
             if ($_SESSION["login"] == 0) {
-                //header("location: index.php");
-                //exit();
+                header("location: index.php");
+                exit();
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("你已經被加入黑名單")';
@@ -42,7 +53,7 @@ if (isset($_POST["btnlogin"])) {
             echo '<script language="javascript">';
             echo 'alert("請輸入正確的帳號或密碼")';
             echo '</script>';
-            unset($_POST["btnlogin"]);
+            //unset($_POST["btnlogin"]);
         }
     } else {
         echo '<script language="javascript">';
@@ -78,10 +89,9 @@ if (isset($_POST["btnreg"])) {
     {
         window.history.replaceState( null, null, window.location.href );
     }
-
 </script>
 
-<form id="form1" name="form1" method="post" action="index.php" >
+<form id="form1" name="form1" method="post" >
   <table class="site" width="350" border="0"  cellpadding="10" cellspacing="1" bgcolor="#F2F2F2">
     <tr>
       <tr>

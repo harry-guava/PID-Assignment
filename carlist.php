@@ -1,29 +1,14 @@
 <?php
 session_start();
-require "connect.php";
-$check = $_SESSION["check"];
-if (isset($_SESSION["userName"])) {
-    $user = $_SESSION["userName"];
-} else {
-    $user = "guest";
-}
-///商品清單
-$sql = "select * from res";
+require("connect.php");
+$sql = "select * from buycar";
 $result = mysqli_query($link, $sql);
-$add = mysqli_query($link, $sql);
-$car = mysqli_fetch_assoc($add);
-//var_dump($result);
-$resname = $car["resname"];
-if (isset($_POST["addcar"])) {
-  $addbuy = $_POST["number"];
-  echo $addbuy;
-  $_SESSION["addbuy"] = $addbuy;
-}
 
-if(isset($_POST["buycar"]))
-{
-  header("Location: carlist.php");
-}
+//$add = mysqli_query($link, $sql);
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,26 +72,23 @@ if(isset($_POST["buycar"]))
     {
         window.history.replaceState( null, null, window.location.href );
     }
- 
-  
 </script>
 <div id = "all">
   <form method="post" class="header">
   <h1>黑心購物網</h1>
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
   <a href = "membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
-  <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>
 <div>
 <div class="tb">
 <table class="table table-dark">
     <thead>
       <tr>
-        <th>產品編號</th>
+        <th>清單編號</th>
         <th>產品名稱</th>
         <th>價格</th>
         <th>數量</th>
-        <th>庫存</th>
+        <th>金額</th>
       </tr>
     </thead>
     <tbody>
@@ -115,12 +97,11 @@ if(isset($_POST["buycar"]))
         <td><?=$row["resId"]?></td>
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
-        <form id="formadd" name="formadd" method = "post">
-        <td><input name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" style ="width:50px"/></td>
-        <td><?=$row["stock"]?></td>
-        <td>       
+        <td><?=$row["want"]?></td>
+        <td><?=($row["want"])*($row["price"])?></td>
+        <td>
             <span>
-            <a href="./add.php?="<?=$row["resId"]?>><button name="addcar">加入購物車</button></a>
+                 <input value="加入購物車" name="addcar" id="addcar" type="submit" class="btn btn-outline-success btn-sm"/>
             </span>
         </form>
         </td>
