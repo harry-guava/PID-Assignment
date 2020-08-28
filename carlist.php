@@ -18,11 +18,21 @@ else
 $result = mysqli_query($link, $sql);
 $total =mysqli_query($link,$sql2);
 $sum = mysqli_fetch_assoc($total);
+$sum1=$sum["total"];
+$want1=$sum["want"];
 
 if(isset($_POST["btnOK"]))
 {
   $sql="insert into tempcar select * from buycar";
-  mysqli_query($link,$sql);
+  $temp=mysqli_query($link,$sql);
+  $temp2=mysqli_fetch_assoc($temp);
+  $want2=$temp2["want"];
+  $total2=$sum;
+  if($temp2["resId"]!="")
+  {
+    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
+  }
+  header("Location: index.php");
 }
 
 

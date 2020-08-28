@@ -106,6 +106,12 @@ if(isset($_POST["buycar"]))
       right:190px;
       top:0px;
     }
+    .fn
+    {
+      position:fixed;
+      right:305px;
+      top:0px;
+    }
 
   </style>
 </head>
@@ -126,6 +132,7 @@ if(isset($_POST["buycar"]))
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
+  <a href = "membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fn">商品管理</a>
   <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>
 <div>

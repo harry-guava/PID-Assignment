@@ -18,7 +18,7 @@ $row = mysqli_fetch_assoc($result);
  $sql2 = "select * from buycar where `resId`=$id";
  $result2= mysqli_query($link,$sql2);
  $resname2=  mysqli_fetch_assoc($result2);
-if($_SESSION["serverId"]==0)
+if($_SESSION["serverId"]=="")
 {
   if($resname2["resname"]==$resname)
   {
