@@ -9,7 +9,7 @@ create table member
     `muse` varchar(30) ,
     `paswd` varchar(30) ,
     `username` varchar(15) NOT NULL,
-    `listId` int,
+    `listId` int ,
     `login` int not null default 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -30,6 +30,7 @@ create table buycar
     price int,
     want int NOT NULL default 0,
     total int,
+    serverId int,
     foreign key (memberId) references member(memberId)
 );
 
@@ -39,7 +40,18 @@ create table serverlist
     sername varchar(30) NOT NULL,
     serpaswd varchar(30) NOT NULL
 );
-
+create table tempcar
+(
+    buyId int auto_increment primary key,
+    memberId int,
+    resId int ,
+    resname varchar(30),
+    price int,
+    want int NOT NULL default 0,
+    total int,
+    serverId int,
+    foreign key (memberId) references member(memberId)
+);
 
 
 insert into member (muse,paswd,username,listId) values

@@ -1,15 +1,17 @@
 <?php
 session_start();
 require "connect.php";
-echo $_SESSION["memberId"];
+//echo $_SESSION["memberId"];
+//echo $_SESSION["serverId"];
 $check = $_SESSION["check"];
 if (isset($_SESSION["userName"])) {
     $user = $_SESSION["userName"];
 } else {
     $user = "guest";
 }
+
 ///商品清單
-echo $user;
+//echo $user;
 $sql = "select * from res";
 $result = mysqli_query($link, $sql);
 $add = mysqli_query($link, $sql);
@@ -17,6 +19,8 @@ $car = mysqli_fetch_assoc($add);
 //var_dump($result);
 $resname = $car["resname"];
 if (isset($_GET["addcar"])) {
+  if(($_SESSION["memberId"]!=0) | ($_SESSION["check"]!=0))
+  {
   $addbuy = $_GET["number"];
   //echo $addbuy;
   $_SESSION["addbuy"] = $addbuy;
@@ -24,18 +28,24 @@ if (isset($_GET["addcar"])) {
   $hidesub = $_GET['hidsub'];
   //echo $hidesub;
   header("Location: add.php?id=$hidesub");
+  }
+  else
+  {
+    echo '<script>alert("請先登入帳號密碼！");location.replace("./login.php")</script>';
+  }
 }
 
 if(isset($_POST["buycar"]))
 {
-  if($_SESSION["memberId"]==0)
-  {
-    header("Location: login.php");
-  }
-  else
+  if($_SESSION["memberId"]!=0 | $_SESSION["check"]!=0)
   {
     header("Location: carlist.php");
   }
+  else
+  {
+    header("location: login.php");
+  }
+  
 }
 
 ?>
@@ -90,6 +100,12 @@ if(isset($_POST["buycar"]))
       position:relative;
       z-index:0;
     }
+    .fl2
+    {
+      position:fixed;
+      right:190px;
+      top:0px;
+    }
 
   </style>
 </head>
@@ -108,6 +124,7 @@ if(isset($_POST["buycar"]))
   <form method="post" class="header" >
   <h1>黑心購物網</h1>
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
+  <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
   <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>

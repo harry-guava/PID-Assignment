@@ -1,18 +1,20 @@
 <?php
 session_start();
-if($_SESSION["userName"])
+if ($_SESSION["userName"]) 
 {
-  session_destroy();
+    session_destroy();
 }
-if (isset($_POST["btnlogin"])) {
+if (isset($_POST["btnlogin"])) 
+{
     $userName = $_POST["txtuserName"];
     $passWord = $_POST["txtpassWord"];
     $sername = $_POST["txtuserName"];
     $serpass = $_POST["txtpassWord"];
-    if (trim(($userName && $passWord) != "")) {
+    if (trim(($userName && $passWord) != "")) 
+    {
         $_SESSION["userName"] = $userName;
         $_SESSION["passWord"] = $passWord;
-        require "connect.php";
+        require("connect.php");
         $sql = <<< compare
           select * from member where muse = '$userName' and paswd = '$passWord';
         compare;
@@ -20,7 +22,7 @@ if (isset($_POST["btnlogin"])) {
         $result = mysqli_query($link, $sql);
         //var_dump($result);
         $rowlogin = mysqli_fetch_assoc($result);
-        $_SESSION["memberId"]=$rowlogin["memberId"];
+        $_SESSION["memberId"] = $rowlogin["memberId"];
         $_SESSION["login"] = $rowlogin["login"];
         //echo $_SESSION["login"];
         $rownum = mysqli_num_rows($result);
@@ -32,38 +34,51 @@ if (isset($_POST["btnlogin"])) {
         $serresult = mysqli_query($link, $sql2);
         //var_dump($serresult);
         $sercheck = mysqli_num_rows($serresult);
-        if ($sercheck != 0) {
+        $serid  =  mysqli_fetch_assoc($serresult);
+        echo $serid["serverId"];
+        $_SESSION["serverId"] = $serid["serverId"];
+        $_SESSION["serName"] = $sercheck["sername"];
+        if ($sercheck != 0) 
+        {
             $_SESSION["check"] = 1;
         }
-        echo $sercheck;
+        echo $sercheck["serverId"];
         echo $_SESSION["check"];
-        if (($rownum | $sercheck) != 0) {
-          if($rownum!=0)
+        if ($rownum != 0 | $sercheck!=0) 
+        {
+          if ($_SESSION["login"] == 0) 
           {
-            $_SESSION["check"]=0;
+              header("location: index.php");
+              exit();
           }
-            if ($_SESSION["login"] == 0) {
-                header("location: index.php");
-                exit();
-            } else {
-                echo '<script language="javascript">';
-                echo 'alert("你已經被加入黑名單")';
-                echo '</script>';
-                exit();
-            }
-        } else {
+          else 
+          {
             echo '<script language="javascript">';
-            echo 'alert("請輸入正確的帳號或密碼")';
+            echo 'alert("你已經被加入黑名單")';
             echo '</script>';
-            //unset($_POST["btnlogin"]);
-        }
-    } else {
-        echo '<script language="javascript">';
-        echo 'alert("欄位請勿空白")';
-        echo '</script>';
-    }
-}
-if (isset($_POST["btnreg"])) {
+            exit();
+          }
+        
+         } 
+         else 
+         {
+         echo '<script language="javascript">';
+         echo 'alert("請輸入正確的帳號或密碼")';
+         echo '</script>';
+         }   
+     
+    
+     }     
+     else 
+    {
+    echo '<script language="javascript">';
+    echo 'alert("欄位請勿空白")';
+    echo '</script>';
+    } 
+} 
+
+if (isset($_POST["btnreg"])) 
+{
     header("location: register.php");
 }
 //echo '<script language="JavaScript">window.history.go(1)</script>';

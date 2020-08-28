@@ -2,12 +2,30 @@
 session_start();
 require("connect.php");
 $memberId= $_SESSION["memberId"];
+$serverId= $_SESSION["serverId"];
+echo $serverId;
+if($_SESSION["serverId"]==0)
+{
 $sql = "select * from buycar where memberId = $memberId";
-$result = mysqli_query($link, $sql);
+$sql2 = "select SUM(total) from buycar where memberId = $memberId";
+}
+else
+{
+  $sql = "select * from buycar where serverId = $serverId";
+ $sql2 = "select SUM(total) from buycar where serverId = $serverId";
+}
 
-$sql = "select SUM(total) from buycar where memberId = $memberId";
-$total =mysqli_query($link,$sql);
+$result = mysqli_query($link, $sql);
+$total =mysqli_query($link,$sql2);
 $sum = mysqli_fetch_assoc($total);
+
+if(isset($_POST["btnOK"]))
+{
+  $sql="insert into tempcar select * from buycar";
+  mysqli_query($link,$sql);
+}
+
+
 //echo $sum["SUM(total)"];
 //$add = mysqli_query($link, $sql);
 ?>
@@ -67,6 +85,12 @@ $sum = mysqli_fetch_assoc($total);
       position: absolute;
       margin-top:30px;
     }
+    .hr
+    {
+      position: absolute;
+      margin-top:30px;
+      right:0px;
+    }
   </style>
 </head>
 <body>
@@ -116,6 +140,10 @@ $sum = mysqli_fetch_assoc($total);
     </tbody>
   </table>
 </div>
-       <h2 class="hh">總共:<?=$sum["SUM(total)"]?></h2>
+       <h2 class="hh">總共:<?=$sum["SUM(total)"]."元"?></h2>
+       <form method="post">
+         <input name="btnOK" type="submit" class="btn btn-warning hr" value="送出"/>
+       </form>
+       
 </body>
 </html>
