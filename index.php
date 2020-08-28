@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "connect.php";
+echo $_SESSION["memberId"];
 $check = $_SESSION["check"];
 if (isset($_SESSION["userName"])) {
     $user = $_SESSION["userName"];
@@ -8,22 +9,35 @@ if (isset($_SESSION["userName"])) {
     $user = "guest";
 }
 ///商品清單
+echo $user;
 $sql = "select * from res";
 $result = mysqli_query($link, $sql);
 $add = mysqli_query($link, $sql);
 $car = mysqli_fetch_assoc($add);
 //var_dump($result);
 $resname = $car["resname"];
-if (isset($_POST["addcar"])) {
-  $addbuy = $_POST["number"];
-  echo $addbuy;
+if (isset($_GET["addcar"])) {
+  $addbuy = $_GET["number"];
+  //echo $addbuy;
   $_SESSION["addbuy"] = $addbuy;
+  //echo $_GET['hidsub'];
+  $hidesub = $_GET['hidsub'];
+  //echo $hidesub;
+  header("Location: add.php?id=$hidesub");
 }
 
 if(isset($_POST["buycar"]))
 {
-  header("Location: carlist.php");
+  if($_SESSION["memberId"]==0)
+  {
+    header("Location: login.php");
+  }
+  else
+  {
+    header("Location: carlist.php");
+  }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +105,7 @@ if(isset($_POST["buycar"]))
   
 </script>
 <div id = "all">
-  <form method="post" class="header">
+  <form method="post" class="header" >
   <h1>黑心購物網</h1>
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
   <a href = "membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
@@ -115,12 +129,13 @@ if(isset($_POST["buycar"]))
         <td><?=$row["resId"]?></td>
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
-        <form id="formadd" name="formadd" method = "post">
+        <form id="formadd" name="formadd" >
         <td><input name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" style ="width:50px"/></td>
         <td><?=$row["stock"]?></td>
-        <td>       
+        <td>       <!-- "./add.php?=<?=$row["resId"]?>"-->
             <span>
-            <a href="./add.php?="<?=$row["resId"]?>><button name="addcar">加入購物車</button></a>
+            <input type="submit" name="addcar" value="加入購物車" class="btn btn-outline-success btn-sm"/>
+            <input type="hidden" name="hidsub" value="<?=$row["resId"]?>" />
             </span>
         </form>
         </td>

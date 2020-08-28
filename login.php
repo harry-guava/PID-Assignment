@@ -20,6 +20,7 @@ if (isset($_POST["btnlogin"])) {
         $result = mysqli_query($link, $sql);
         //var_dump($result);
         $rowlogin = mysqli_fetch_assoc($result);
+        $_SESSION["memberId"]=$rowlogin["memberId"];
         $_SESSION["login"] = $rowlogin["login"];
         //echo $_SESSION["login"];
         $rownum = mysqli_num_rows($result);
@@ -34,8 +35,8 @@ if (isset($_POST["btnlogin"])) {
         if ($sercheck != 0) {
             $_SESSION["check"] = 1;
         }
-        //echo $sercheck;
-        //echo $_SESSION["check"];
+        echo $sercheck;
+        echo $_SESSION["check"];
         if (($rownum | $sercheck) != 0) {
           if($rownum!=0)
           {
@@ -48,6 +49,7 @@ if (isset($_POST["btnlogin"])) {
                 echo '<script language="javascript">';
                 echo 'alert("你已經被加入黑名單")';
                 echo '</script>';
+                exit();
             }
         } else {
             echo '<script language="javascript">';
@@ -64,7 +66,7 @@ if (isset($_POST["btnlogin"])) {
 if (isset($_POST["btnreg"])) {
     header("location: register.php");
 }
-
+//echo '<script language="JavaScript">window.history.go(1)</script>';
 ?>
 <html>
 <head>

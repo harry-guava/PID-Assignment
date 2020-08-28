@@ -12,10 +12,11 @@ if(isset($_POST["addsub"]))
         $_SESSION["addpswd"]= $addpswd;
         require("connect.php");
         $sql = <<<add
-         insert into member (`muse`,paswd,`username`) values
-         ('$adus','$adpswd','$adname');
+         insert into member (`muse`,paswd,`username`,`listId`) values
+         ('$adus','$adpswd','$adname',1);
         add;
         mysqli_query($link,$sql);
+         
         //echo "$adname<br>$adus<br>$adpswd<br>";
         echo "<script type='text/javascript'>alert('建立成功,開始享受你的購物之旅吧！');</script>";
         

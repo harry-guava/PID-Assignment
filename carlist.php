@@ -1,14 +1,15 @@
 <?php
 session_start();
 require("connect.php");
-$sql = "select * from buycar";
+$memberId= $_SESSION["memberId"];
+$sql = "select * from buycar where memberId = $memberId";
 $result = mysqli_query($link, $sql);
 
+$sql = "select SUM(total) from buycar where memberId = $memberId";
+$total =mysqli_query($link,$sql);
+$sum = mysqli_fetch_assoc($total);
+//echo $sum["SUM(total)"];
 //$add = mysqli_query($link, $sql);
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,17 +62,22 @@ $result = mysqli_query($link, $sql);
       position:relative;
       z-index:0;
     }
-
+    .hh
+    {
+      position: absolute;
+      margin-top:30px;
+    }
   </style>
 </head>
 <body>
 
 <script>
-   
+  
     if ( window.history.replaceState )
     {
         window.history.replaceState( null, null, window.location.href );
     }
+
 </script>
 <div id = "all">
   <form method="post" class="header">
@@ -84,7 +90,6 @@ $result = mysqli_query($link, $sql);
 <table class="table table-dark">
     <thead>
       <tr>
-        <th>清單編號</th>
         <th>產品名稱</th>
         <th>價格</th>
         <th>數量</th>
@@ -94,15 +99,16 @@ $result = mysqli_query($link, $sql);
     <tbody>
     <?php while ($row = mysqli_fetch_assoc($result)) {?>
       <tr>
-        <td><?=$row["resId"]?></td>
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <td><?=$row["want"]?></td>
         <td><?=($row["want"])*($row["price"])?></td>
         <td>
+          <form method ="POST">
             <span>
-                 <input value="加入購物車" name="addcar" id="addcar" type="submit" class="btn btn-outline-success btn-sm"/>
+                 <a href="./delcar.php?id=<?=$row["buyId"]?>" class="btn btn-outline-danger btn-sm">移除</a>
             </span>
+          </form>
         </form>
         </td>
       </tr>
@@ -110,5 +116,6 @@ $result = mysqli_query($link, $sql);
     </tbody>
   </table>
 </div>
+       <h2 class="hh">總共:<?=$sum["SUM(total)"]?></h2>
 </body>
 </html>
