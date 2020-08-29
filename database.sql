@@ -9,7 +9,6 @@ create table member
     `muse` varchar(30) ,
     `paswd` varchar(30) ,
     `username` varchar(15) NOT NULL,
-    `listId` int ,
     `login` int not null default 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -51,8 +50,8 @@ create table buylist0
     serverId int
 );
 
-insert into member (muse,paswd,username,listId) values
-('apple','1234','王小明',1),('wang','4232','大平台',1);
+insert into member (muse,paswd,username) values
+('apple','1234','王小明'),('wang','4232','大平台');
 
 
 insert into serverlist (serverId,sername,serpaswd) values

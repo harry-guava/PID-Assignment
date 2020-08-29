@@ -12,8 +12,8 @@ if(isset($_POST["addsub"]))
         $_SESSION["addpswd"]= $addpswd;
         require("connect.php");
         $sql = <<<add
-         insert into member (`muse`,paswd,`username`,`listId`) values
-         ('$adus','$adpswd','$adname',1);
+         insert into member (`muse`,paswd,`username`) values
+         ('$adus','$adpswd','$adname');
         add;
         mysqli_query($link,$sql);
          
