@@ -29,7 +29,6 @@
         <th>暱稱</th>
         <th>帳號</th>
         <th>密碼</th>
-        <th>訂單號碼</th>
       </tr>
     </thead>
     <tbody>
@@ -38,7 +37,6 @@
         <td><?= $row["username"]?></td>
         <td><?= $row["muse"]?></td>
         <td><?= $row["paswd"]?></td>
-        <td><?= $row["listId"]?></td>
         <td>
             <span>
                 <a href="./ban.php?id=<?= $row["memberId"]?>" class="btn btn-outline-success btn-sm">
