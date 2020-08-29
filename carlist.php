@@ -33,9 +33,20 @@ if (isset($_POST["btnOK"]))
     // if ($listnumber == $checkdate . $n) 
     // {
         //echo $listnumber;
-        if ($n != $check["num"]) {
+        if ($n != $check["num"]) 
+        {
+          if($serverId==0)
+          {
             $buylist = "insert into buylist$x (listdate,num,listnumber,memberId) values
       ($listdate,$n,$listnumber,$memberId)";
+      $sel = "select listnumber from buylist$x where memberId = $memberId order by listnumber DESC limit 1";
+          }
+          else
+          {
+            $buylist = "insert into buylist$x (listdate,num,listnumber,serverId) values
+      ($listdate,$n,$listnumber,$serverId)";
+      $sel = "select listnumber from buylist$x where serverId = $serverId order by listnumber DESC limit 1";
+          }
             mysqli_query($link, $buylist);
         }
     // } else {
@@ -54,7 +65,7 @@ if (isset($_POST["btnOK"]))
     //     mysqli_query($link, $cre);
     // }
   
-   $sel = "select listnumber from buylist$x where memberId = $memberId order by listnumber DESC limit 1";
+   
    $sel1 = mysqli_query($link,$sel);
    $sel2 =mysqli_fetch_assoc($sel1);
    $tabnum = $sel2["listnumber"];

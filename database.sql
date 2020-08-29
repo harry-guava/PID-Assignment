@@ -47,7 +47,8 @@ create table buylist0
     listdate int,
     num int ,
     listnumber int,
-    memberId int
+    memberId int,
+    serverId int
 );
 
 insert into member (muse,paswd,username,listId) values
