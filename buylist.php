@@ -1,24 +1,29 @@
 <?php
 session_start();
 require("connect.php");
-
+global $tabnum;
 $memberId= $_SESSION["memberId"];
 $serverId= $_SESSION["serverId"];
+$tabnum = $_SESSION["tabnum"];
+//var_dump($_SESSION["serverId"]) ;
 echo $serverId;
-if($_SESSION["serverId"]==0)
+//echo $memberId;
+echo $tabnum;
+if($serverId==0)
 {
-$sql = "select * from tempcar where memberId = $memberId";
-$sql2 = "select SUM(total) from tempcar where memberId = $memberId";
+$sql = "select * from `$tabnum`;";
+$sql2 = "select SUM(total) from `$tabnum`;";
 }
 else
 {
- $sql = "select * from tempcar where serverId = $serverId";
- $sql2 = "select SUM(total) from tempcar where serverId = $serverId";
+ $sql = "select * from `$tabnum`;";
+ $sql2 = "select SUM(total) from `$tabnum`;";
 }
-
+echo $sql2;
 $result = mysqli_query($link, $sql);
 $total =mysqli_query($link,$sql2);
-$sum = mysqli_fetch_assoc($total)
+
+$sum = mysqli_fetch_assoc($total);
 ?>
 <!DOCTYPE html>
 <html lang="en">

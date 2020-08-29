@@ -30,7 +30,7 @@ create table buycar
     price int,
     want int NOT NULL default 0,
     total int,
-    serverId int,
+    serverId int NOT NULL default 0 ,
     foreign key (memberId) references member(memberId)
 );
 
@@ -40,19 +40,15 @@ create table serverlist
     sername varchar(30) NOT NULL,
     serpaswd varchar(30) NOT NULL
 );
-create table tempcar
-(
-    buyId int auto_increment primary key,
-    memberId int,
-    resId int ,
-    resname varchar(30),
-    price int,
-    want int NOT NULL default 0,
-    total int,
-    serverId int,
-    foreign key (memberId) references member(memberId)
-);
 
+create table buylist0
+(
+    buylistId int auto_increment  primary key,
+    listdate int,
+    num int ,
+    listnumber int,
+    memberId int
+);
 
 insert into member (muse,paswd,username,listId) values
 ('apple','1234','王小明',1),('wang','4232','大平台',1);
@@ -64,8 +60,8 @@ insert into serverlist (serverId,sername,serpaswd) values
 insert into res (resname,price,stock) values
 ('蘋果',30,100),('香蕉',50,70);
 
-
-
+insert into buylist0 (num) values (0);
+--------------------------------------------------------
 
 create table buylist
 (
@@ -93,3 +89,18 @@ create table buylist
 
 insert into buycar (resId,resname,price,want,total) values
 (1,'蘋果',30,0,(want*price)),(2,'香蕉',50,0,(want*price));
+
+
+
+create table tempcar
+(
+    buyId int auto_increment primary key,
+    memberId int,
+    resId int ,
+    resname varchar(30),
+    price int,
+    want int NOT NULL default 0,
+    total int,
+    serverId int,
+    foreign key (memberId) references member(memberId)
+);

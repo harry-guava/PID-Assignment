@@ -1,40 +1,84 @@
 <?php
 session_start();
-require("connect.php");
-$memberId= $_SESSION["memberId"];
-$serverId= $_SESSION["serverId"];
+require "connect.php";
+$memberId = $_SESSION["memberId"];
+$serverId = $_SESSION["serverId"];
 echo $serverId;
-if($_SESSION["serverId"]==0)
-{
-$sql = "select * from buycar where memberId = $memberId";
-$sql2 = "select SUM(total) from buycar where memberId = $memberId";
-}
-else
-{
-  $sql = "select * from buycar where serverId = $serverId";
- $sql2 = "select SUM(total) from buycar where serverId = $serverId";
+if ($_SESSION["serverId"] == 0) {
+    $sql = "select * from buycar where memberId = $memberId";
+    $sql2 = "select SUM(total) from buycar where memberId = $memberId";
+} else {
+    $sql = "select * from buycar where serverId = $serverId";
+    $sql2 = "select SUM(total) from buycar where serverId = $serverId";
 }
 
 $result = mysqli_query($link, $sql);
-$total =mysqli_query($link,$sql2);
+$total = mysqli_query($link, $sql2);
 $sum = mysqli_fetch_assoc($total);
-$sum1=$sum["total"];
-$want1=$sum["want"];
+$sum1 = $sum["total"];
+$want1 = $sum["want"];
 
-if(isset($_POST["btnOK"]))
+if (isset($_POST["btnOK"])) 
 {
-  $sql="insert into tempcar select * from buycar";
-  $temp=mysqli_query($link,$sql);
-  $temp2=mysqli_fetch_assoc($temp);
-  $want2=$temp2["want"];
-  $total2=$sum;
-  if($temp2["resId"]!="")
-  {
-    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
-  }
+    $k = $n;
+    $x= 0;
+    $listdate = date('Ymd', time());
+    $check = "select num from buylist$x order by num DESC limit 1";
+    $check1 = mysqli_query($link, $check);
+    $checknum = mysqli_fetch_assoc($check1);
+    //echo $checknum["num"];
+    //$checkdate = $checknum["listdate"];
+    $n = $checknum["num"] + 1;
+    $listnumber = $listdate . $n;
+    // if ($listnumber == $checkdate . $n) 
+    // {
+        //echo $listnumber;
+        if ($n != $check["num"]) {
+            $buylist = "insert into buylist$x (listdate,num,listnumber,memberId) values
+      ($listdate,$n,$listnumber,$memberId)";
+            mysqli_query($link, $buylist);
+        }
+    // } else {
+    //     $x++;
+    //     $cre = <<< cre1
+    // create table buylist$x
+    // (
+    //     buylistId int auto_increment  primary key,
+    //     listdate int,
+    //     num int ,
+    //     listnumber int,
+    //     memberId int
+    // );
+    // insert into buylist$x (num) values (0);
+    // cre1;
+    //     mysqli_query($link, $cre);
+    // }
+  
+   $sel = "select listnumber from buylist$x where memberId = $memberId order by listnumber DESC limit 1";
+   $sel1 = mysqli_query($link,$sel);
+   $sel2 =mysqli_fetch_assoc($sel1);
+   $tabnum = $sel2["listnumber"];
+   //echo $sel2["listnumber"];
+
+   $cre = "create table `$tabnum` select * from buycar;";
+
+   mysqli_query($link,$cre);
+  //  $sql="insert into tempcar select * from buycar";
+ 
+  //  $sel = "select * from $tabnum";
+  //  $temp=mysqli_query($link,$sel);
+  //  $temp2=mysqli_fetch_assoc($temp);
+  //   $want2=$temp2["want"];
+  //  $total2=$sum;
+  //  if($temp2["resId"]!="")
+  //  {
+  //    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
+  //  }
+  $trun = "truncate table buycar";
+  mysqli_query($link,$trun) ;
+  $_SESSION["tabnum"]=$tabnum;
   header("Location: index.php");
 }
-
 
 //echo $sum["SUM(total)"];
 //$add = mysqli_query($link, $sql);
@@ -106,7 +150,7 @@ if(isset($_POST["btnOK"]))
 <body>
 
 <script>
-  
+
     if ( window.history.replaceState )
     {
         window.history.replaceState( null, null, window.location.href );
@@ -136,7 +180,7 @@ if(isset($_POST["btnOK"]))
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <td><?=$row["want"]?></td>
-        <td><?=($row["want"])*($row["price"])?></td>
+        <td><?=($row["want"]) * ($row["price"])?></td>
         <td>
           <form method ="POST">
             <span>
@@ -150,10 +194,10 @@ if(isset($_POST["btnOK"]))
     </tbody>
   </table>
 </div>
-       <h2 class="hh">總共:<?=$sum["SUM(total)"]."元"?></h2>
+       <h2 class="hh">總共:<?=$sum["SUM(total)"] . "元"?></h2>
        <form method="post">
          <input name="btnOK" type="submit" class="btn btn-warning hr" value="送出"/>
        </form>
-       
+
 </body>
 </html>

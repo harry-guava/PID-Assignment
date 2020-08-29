@@ -27,7 +27,7 @@ if (isset($_POST["btnlogin"]))
         //echo $_SESSION["login"];
         $rownum = mysqli_num_rows($result);
         //echo $rownum;
-
+        
         $sql2 = <<<server
          select * from serverlist where sername = '$sername' and serpaswd = '$serpass';
         server;
@@ -35,15 +35,16 @@ if (isset($_POST["btnlogin"]))
         //var_dump($serresult);
         $sercheck = mysqli_num_rows($serresult);
         $serid  =  mysqli_fetch_assoc($serresult);
-        echo $serid["serverId"];
-        $_SESSION["serverId"] = $serid["serverId"];
+        $_SESSION["serverId"] = 0;
+        //echo $_SESSION["serverId"];
         $_SESSION["serName"] = $sercheck["sername"];
         if ($sercheck != 0) 
         {
+            $_SESSION["serverId"] = $serid["serverId"];
             $_SESSION["check"] = 1;
         }
-        echo $sercheck["serverId"];
-        echo $_SESSION["check"];
+        //echo $sercheck["serverId"];
+        //echo $_SESSION["check"];
         if ($rownum != 0 | $sercheck!=0) 
         {
           if ($_SESSION["login"] == 0) 
@@ -75,7 +76,7 @@ if (isset($_POST["btnlogin"]))
     echo 'alert("欄位請勿空白")';
     echo '</script>';
     } 
-} 
+ } 
 
 if (isset($_POST["btnreg"])) 
 {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "connect.php";
+require("connect.php");
 //echo $_SESSION["memberId"];
 //echo $_SESSION["serverId"];
 $check = $_SESSION["check"];
@@ -9,7 +9,7 @@ if (isset($_SESSION["userName"])) {
 } else {
     $user = "guest";
 }
-
+echo $_SESSION["serverId"];
 ///商品清單
 //echo $user;
 $sql = "select * from res";
