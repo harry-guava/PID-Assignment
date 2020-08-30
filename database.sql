@@ -22,8 +22,7 @@ create table res
 
 create table buycar
 (
-    buyId int auto_increment primary key,
-    memberId int,
+    memberId int ,
     resId int ,
     resname varchar(30),
     price int,
@@ -40,10 +39,8 @@ create table serverlist
     serpaswd varchar(30) NOT NULL
 );
 
-create table buylist0
-(
-    buylistId int auto_increment  primary key,
-    listdate int,
+create table Orderlist
+(   
     num int ,
     listnumber int,
     memberId int,
@@ -60,9 +57,10 @@ insert into serverlist (serverId,sername,serpaswd) values
 insert into res (resname,price,stock) values
 ('蘋果',30,100),('香蕉',50,70);
 
-insert into buylist0 (num) values (0);
+insert into orderlist (num) values (0);
 --------------------------------------------------------
-
+insert into orderlist (listnumber,memberId,resId,resname,price,want,serverId,total) values
+(202008302, (select memberID,resId,resname,price,want,serverId,total from buycar));
 create table buylist
 (
     `listId` int auto_increment primary key,

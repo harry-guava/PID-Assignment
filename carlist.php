@@ -20,10 +20,9 @@ $want1 = $sum["want"];
 
 if (isset($_POST["btnOK"])) 
 {
-    $k = $n;
-    $x= 0;
+   
     $listdate = date('Ymd', time());
-    $check = "select num from buylist$x order by num DESC limit 1";
+    $check = "select num from orderlist order by num DESC limit 1";
     $check1 = mysqli_query($link, $check);
     $checknum = mysqli_fetch_assoc($check1);
     //echo $checknum["num"];
@@ -37,33 +36,24 @@ if (isset($_POST["btnOK"]))
         {
           if($serverId==0)
           {
-            $buylist = "insert into buylist$x (listdate,num,listnumber,memberId) values
-      ($listdate,$n,$listnumber,$memberId)";
-      $sel = "select listnumber from buylist$x where memberId = $memberId order by listnumber DESC limit 1";
+            $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,$memberId,$serverId)";
+            $sel = "select listnumber from orderlist where memberId = $memberId order by listnumber DESC limit 1";
           }
           else
           {
-            $buylist = "insert into buylist$x (listdate,num,listnumber,serverId) values
-      ($listdate,$n,$listnumber,$serverId)";
-      $sel = "select listnumber from buylist$x where serverId = $serverId order by listnumber DESC limit 1";
+            $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,0,$serverId)";
+            $sel = "select listnumber from orderlist where serverId = $serverId order by listnumber DESC limit 1";
           }
-            mysqli_query($link, $buylist);
+          mysqli_query($link, $buylist);
         }
+
     // } else {
     //     $x++;
-    //     $cre = <<< cre1
-    // create table buylist$x
-    // (
-    //     buylistId int auto_increment  primary key,
-    //     listdate int,
-    //     num int ,
-    //     listnumber int,
-    //     memberId int
-    // );
-    // insert into buylist$x (num) values (0);
-    // cre1;
-    //     mysqli_query($link, $cre);
-    // }
+         $cre = <<< cre1
+    create table `$listnumber` select * from buycar;
+    cre1;
+        mysqli_query($link, $cre);
+  //}
   
    
    $sel1 = mysqli_query($link,$sel);
@@ -71,9 +61,9 @@ if (isset($_POST["btnOK"]))
    $tabnum = $sel2["listnumber"];
    //echo $sel2["listnumber"];
 
-   $cre = "create table `$tabnum` select * from buycar;";
+   //$cre = "create table `$tabnum` select * from buycar;";
 
-   mysqli_query($link,$cre);
+  // mysqli_query($link,$cre);
   //  $sql="insert into tempcar select * from buycar";
  
   //  $sel = "select * from $tabnum";
@@ -85,8 +75,8 @@ if (isset($_POST["btnOK"]))
   //  {
   //    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
   //  }
-  $trun = "truncate table buycar";
-  mysqli_query($link,$trun) ;
+   $trun = "truncate table buycar";
+   mysqli_query($link,$trun) ;
   $_SESSION["tabnum"]=$tabnum;
   header("Location: index.php");
 }
