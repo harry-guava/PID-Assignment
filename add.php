@@ -15,16 +15,24 @@ $row = mysqli_fetch_assoc($result);
  $price = $row["price"];
  $want = $_SESSION["addbuy"];
  //echo $_SESSION["addbuy"];
- $sql2 = "select * from buycar where `resId`=$id";
+ $sql2 = "select * from buycar where resId = $id and memberId = $memberId";
+ $sql22 = "select * from buycar where resId = $id and serverId = $serverId";
  $result2= mysqli_query($link,$sql2);
- $resname2=  mysqli_fetch_assoc($result2);
-if($_SESSION["serverId"]=="")
+ $result22= mysqli_query($link,$sql22);
+ $rows= mysqli_num_rows($result2);
+ $rows2 =mysqli_num_rows($result22);
+ $row = mysqli_fetch_assoc($result2);
+ $row1 = mysqli_fetch_assoc($result22);
+ $want1 = $row["want"]+$want;
+ //echo $want1;
+ if($_SESSION["serverId"]=="")
 {
-  if($resname2["resname"]==$resname)
+  if($rows!=0)
   {
     $sql3 = <<< car
-    update buycar set want = (want+$want) , total=(want*$price) where resId =$id;
+    update buycar set want = (want+$want) , total=(want*$price) where resId =$id and memberId =$memberId;
     car;
+    $sql4 ="update res set temp = temp-$want1 where resId=$id";
   }
   else
   {
@@ -33,26 +41,30 @@ if($_SESSION["serverId"]=="")
   ('$id','$memberId','$resname','$price','$want',('$price'*'$want'))
  car;
   }
-mysqli_query($link,$sql3);
+  $sql4 ="update res set temp = temp-$want1 where resId=$id";
+
 }
 else
 {
-    if($resname2["resname"]==$resname)
+    if($rows2!=0)
     {
-       $sql4 = <<<server
+       $sql3 = <<<server
        update buycar set want = (want+$want) , total=(want*$price) where resId =$id;
        server;
+       $sql4 ="update res set temp = temp-$want1 where resId=$id";
     }
     else
     {
-        $sql4 = <<<server
+        $sql3 = <<<server
         insert into buycar (resId,serverId,resname,price,want,total) values
         ('$id','$serverId','$resname','$price','$want',($price*$want))
         server;
+        $sql4 ="update res set temp = temp-$want1 where resId=$id";
     }
 
-mysqli_query($link,$sql4);
 }
+mysqli_query($link,$sql3);
+mysqli_query($link,$sql4);
 header("location: index.php");
 
 

@@ -3,7 +3,10 @@ session_start();
 require "connect.php";
 $memberId = $_SESSION["memberId"];
 $serverId = $_SESSION["serverId"];
-echo $serverId;
+//echo $serverId;
+//echo $memberId;
+
+
 if ($_SESSION["serverId"] == 0) {
     $sql = "select * from buycar where memberId = $memberId";
     $sql2 = "select SUM(total) from buycar where memberId = $memberId";
@@ -17,10 +20,12 @@ $total = mysqli_query($link, $sql2);
 $sum = mysqli_fetch_assoc($total);
 $sum1 = $sum["total"];
 $want1 = $sum["want"];
+$test= "select (r.stock - b.want) stockn from res r inner join buycar b on r.resId=b.resId";
+$test1 = mysqli_query($link,$test);
+
 
 if (isset($_POST["btnOK"])) 
 {
-   
     $listdate = date('Ymd', time());
     $check = "select num from orderlist order by num DESC limit 1";
     $check1 = mysqli_query($link, $check);
@@ -54,8 +59,6 @@ if (isset($_POST["btnOK"]))
     cre1;
         mysqli_query($link, $cre);
   //}
-  
-   
    $sel1 = mysqli_query($link,$sel);
    $sel2 =mysqli_fetch_assoc($sel1);
    $tabnum = $sel2["listnumber"];
@@ -78,6 +81,9 @@ if (isset($_POST["btnOK"]))
    $trun = "truncate table buycar";
    mysqli_query($link,$trun) ;
   $_SESSION["tabnum"]=$tabnum;
+  $sqlupt = "update res set stock=temp";
+  mysqli_query($link,$sqlupt);
+  
   header("Location: index.php");
 }
 
@@ -181,11 +187,11 @@ if (isset($_POST["btnOK"]))
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <td><?=$row["want"]?></td>
-        <td><?=($row["want"]) * ($row["price"])?></td>
+        <td><?=($row["total"])?></td>
         <td>
-          <form method ="POST">
+          <form method ="post">
             <span>
-                 <a href="./delcar.php?id=<?=$row["buyId"]?>" class="btn btn-outline-danger btn-sm">移除</a>
+                 <a href="./delcar.php?id=<?=$row["resId"]?>" class="btn btn-outline-danger btn-sm">移除</a>
             </span>
           </form>
         </form>

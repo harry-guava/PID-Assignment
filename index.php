@@ -12,6 +12,7 @@ if (isset($_SESSION["userName"])) {
 //echo $_SESSION["serverId"];
 ///商品清單
 //echo $user;
+echo $_SESSION["memberId"];
 $sql = "select * from res";
 $result = mysqli_query($link, $sql);
 $add = mysqli_query($link, $sql);

@@ -17,7 +17,8 @@ create table res
     `resId` int auto_increment primary key,
     `resname` varchar(30) NOT NULL,
     `price` int,
-    `stock` int
+    `stock` int,
+     `temp` int
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table buycar
@@ -54,8 +55,8 @@ insert into member (muse,paswd,username) values
 insert into serverlist (serverId,sername,serpaswd) values
 (1,'guava','0507'),(2,'alan','1207');
 
-insert into res (resname,price,stock) values
-('蘋果',30,100),('香蕉',50,70);
+insert into res (resname,price,stock,temp) values
+('蘋果',30,100,100),('香蕉',50,70,70);
 
 insert into orderlist (num) values (0);
 --------------------------------------------------------
