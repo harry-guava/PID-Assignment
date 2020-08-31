@@ -52,7 +52,7 @@ create table Orderlist
 );
 
 insert into member (muse,paswd,username,phone,email,iden) values
-('apple','1234','王小明','0988123456','wang88@gmail.com','T123456789'),('wang','4232','大平台','0931123456','bigtai@yahoo.com.tw','F22456789');
+('apple','1234','王小明','0988123456','wang88@gmail.com','T123456789'),('wang','4232','大平台','0931123456','bigtai@yahoo.com.tw','F224546789');
 
 
 insert into serverlist (serverId,sername,serpaswd) values

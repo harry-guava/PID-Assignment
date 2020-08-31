@@ -3,6 +3,7 @@ session_start();
 require("connect.php");
 //echo $_SESSION["memberId"];
 //echo $_SESSION["serverId"];
+
 $check = $_SESSION["check"];
 if (isset($_SESSION["userName"])) {
     $user = $_SESSION["userName"];
@@ -113,7 +114,12 @@ if(isset($_POST["buycar"]))
       right:305px;
       top:0px;
     }
-
+    .ff
+    {
+      position:fixed;
+      right:75px;
+      top:0px;
+    }
   </style>
 </head>
 <body>
@@ -133,6 +139,7 @@ if(isset($_POST["buycar"]))
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
+  <a href = "editmem.php" id= "btneditmem" name="editmem" class = "btn btn-outline-info btn-lg ff">修改個資</a>
   <a href = "resmanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fn">商品管理</a>
   <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>
