@@ -2,6 +2,7 @@
 session_start();
 if ($_SESSION["userName"]) 
 {
+    session_unset();
     session_destroy();
 }
 if (isset($_POST["btnlogin"])) 

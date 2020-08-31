@@ -1,10 +1,35 @@
 <?php
 session_start();
 require "connect.php";
-
-$man = "select * from res";
+$id = $_GET["id"];
+$man = "select * from res where resId = $id";
 $result = mysqli_query($link, $man);
+$row = mysqli_fetch_assoc($result);
 
+if(isset($_POST["btnOK"]))
+{
+  $editname = $_POST["editname"];
+  $editprice = $_POST["editprice"];
+  $editstock = $_POST["editstock"];
+  echo $editname;
+  echo $editprice;
+  echo $editstock;
+  if(trim($editname&&$editprice&&$editstock)!="")
+  {
+     $sql = <<< upt
+     update res set resname = '$editname',price='$editprice',stock='$editstock',temp='$editstock'
+     where resId = $id ;
+     upt;
+     mysqli_query($link,$sql);
+     echo '<script>alert("修改成功");location.replace("resmanage.php");</script>';
+     //header("Location: resmanage.php");
+  }
+  else
+  {
+      echo '<script>alert(""欄位請勿空白)</script>';
+  }
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +49,6 @@ $result = mysqli_query($link, $man);
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermanage.php" id=btnmember name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
   <a href = "addres.php" id=btnaddres   name = btnaddres class = "btn btn-outline-info btn-lg fn">新增商品</a>
-  <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>
 <div>
 </head>
@@ -40,20 +64,16 @@ $result = mysqli_query($link, $man);
       </tr>
     </thead>
     <tbody>
-    <?php while ($row = mysqli_fetch_assoc($result)) {?>
       <tr>
+      <form method="post">
         <td><?=$row["resId"]?></td>
-        <td><?=$row["resname"]?></td>
-        <td><?=$row["price"]?></td>
-        <td><?=$row["stock"]?></td>
-        <form>
-        <td>
-          <a href="./resedit.php?id=<?=$row["resId"]?>" class="btn btn-outline-success">修改</a>
-          <a href="./resdel.php?id=<?=$row["resId"]?>" class="btn btn-outline-danger">下架</a>
-        </td>
+        <td><input type= "text" name="editname" value="<?=$row["resname"]?>"></td>
+        <td><input type= "text" name="editprice" value="<?=$row["price"]?>"></td>
+        <td><input type= "text" name="editstock" value="<?=$row["stock"]?>"></td>
+        <td><input type= "submit" name="btnOK" value="確認送出" class="btn btn-outline-success"/></td>
         </form>
       </tr>
-    <?php }?>
+        
     </tbody>
   </table>
 </div>
