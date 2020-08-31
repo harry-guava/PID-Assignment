@@ -29,7 +29,7 @@
   $_SESSION["login"]=$rowid["login"];
   echo $_SESSION["login"];
   //echo $rowid["login"];
-  header("Location: membermange.php");
+  header("Location: membermanage.php");
   
   
 ?>

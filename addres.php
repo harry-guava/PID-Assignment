@@ -9,7 +9,24 @@
     $adstock = $_POST["txtstock"];
       if(trim($adname&&$adprice&&$adstock)!="")
       {
-          
+          $sqlc = "select resname from res";
+          $check = mysqli_query($link,$sqlc);
+          $recheck  = mysqli_fetch_assoc($check);
+          if($adname!=$recheck["resname"])
+          {
+          $sql = "insert into res (resname,price,stock) values
+          ('$adname',$adprice,$adstock)";
+          mysqli_query($link,$sql);
+          }
+          else
+          {
+            echo '<script>alert("此產品已存在,請重新輸入")</script>';
+          }
+
+      }
+      else
+      {
+        echo '<script>alert("欄位請勿空白,請重新輸入")</script>';
       }
       
   }
@@ -31,6 +48,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>新增商品</title>
+    <script>
+   
+    if ( window.history.replaceState )
+    {
+        window.history.replaceState( null, null, window.location.href );
+    }
+ 
+  
+</script>
 </head>
 <body>
 <div class="tb">

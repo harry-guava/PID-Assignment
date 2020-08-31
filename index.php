@@ -9,7 +9,7 @@ if (isset($_SESSION["userName"])) {
 } else {
     $user = "guest";
 }
-echo $_SESSION["serverId"];
+//echo $_SESSION["serverId"];
 ///商品清單
 //echo $user;
 $sql = "select * from res";
