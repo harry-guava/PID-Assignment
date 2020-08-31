@@ -9,6 +9,9 @@ create table member
     `muse` varchar(30) ,
     `paswd` varchar(30) ,
     `username` varchar(15) NOT NULL,
+    `email` varchar(30),
+    `phone` varchar(15),
+    `iden` varchar(10),
     `login` int not null default 0
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -48,8 +51,8 @@ create table Orderlist
     serverId int
 );
 
-insert into member (muse,paswd,username) values
-('apple','1234','王小明'),('wang','4232','大平台');
+insert into member (muse,paswd,username,phone,email,iden) values
+('apple','1234','王小明','0988123456','wang88@gmail.com','T123456789'),('wang','4232','大平台','0931123456','bigtai@yahoo.com.tw','F22456789');
 
 
 insert into serverlist (serverId,sername,serpaswd) values

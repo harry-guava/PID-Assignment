@@ -14,9 +14,11 @@
           $recheck  = mysqli_fetch_assoc($check);
           if($adname!=$recheck["resname"])
           {
-          $sql = "insert into res (resname,price,stock) values
-          ('$adname',$adprice,$adstock)";
+          $sql = "insert into res (resname,price,stock,temp) values
+          ('$adname',$adprice,$adstock,$adstock)";
           mysqli_query($link,$sql);
+
+          echo '<script>alert("新增商品成功！")</script>';
           }
           else
           {
@@ -72,10 +74,14 @@
     <tbody>
       <tr>
         <form method = "post">
-        <td></td>
+        <td><label class ="btn btn-info">
+        <input id = "upload_img" style ="display:none" type = "file"/>
+        <i class= "fa fa-photo"></i>上傳圖片
+        </label>
+       </td>
         <td><input type="text" name="txtname"/></td>
-        <td><input type="text" name="txtprice"/></td>
-        <td><input type="text" name="txtstock"/></td>
+        <td><input type="number" oninput="if(value<1)value=1"  name="txtprice"/></td>
+        <td><input type="number" oninput="if(value<1)value=1" name="txtstock"/></td>
         <td><input type="submit" name="addres" id="addres" value="新增"/></td>
         </form>
       </tr>

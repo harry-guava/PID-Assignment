@@ -6,7 +6,7 @@ $serverId = $_SESSION["serverId"];
 $tabnum = $_SESSION["tabnum"];
 //var_dump($_SESSION["serverId"]) ;
 //echo $serverId;
-echo $memberId;
+//echo $memberId;
 if ($serverId == 0) {
   $sqll = "select listnumber from orderlist where memberId = $memberId";
 
