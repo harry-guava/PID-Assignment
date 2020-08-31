@@ -155,7 +155,7 @@ if(isset($_POST["buycar"]))
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <form id="formadd" name="formadd" >
-        <td><input name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" style ="width:50px"/></td>
+        <td><input name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" max ="<?=$row["stock"] ?>"style ="width:50px"/></td>
         <td><?=$row["stock"]?></td>
         <td>       <!-- "./add.php?=<?=$row["resId"]?>"-->
             <span>
