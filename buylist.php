@@ -11,12 +11,19 @@ $memberId = $_SESSION["memberId"];
 }
 
 $tabnum = $_SESSION["tabnum"];
+$serverId = $_SESSION["serverId"];
 //var_dump($_SESSION["serverId"]) ;
 //echo $serverId;
 //echo $memberId;
 
+if($serverId==0)
+{
 $sqll = "select listnumber from orderlist where memberId = $memberId";
-
+}
+else
+{
+  $sqll = "select listnumber from orderlist where serverId = $serverId";
+}
 
 $sqlls = mysqli_query($link, $sqll);
 
