@@ -54,7 +54,7 @@ if(isset($_POST["buycar"]))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>黑心購物網</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -164,11 +164,12 @@ if(isset($_POST["buycar"]))
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <form id="formadd" name="formadd" >
-        <td><input name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" max ="<?=$row["stock"] ?>"style ="width:50px"/></td>
+       
+        <td><input  <?php if($row["stock"]==0) { echo "disabled= disabled";}?>name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" max ="<?=$row["stock"] ?>"style ="width:50px"/></td>
         <td><?=$row["stock"]?></td>
-        <td>       <!-- "./add.php?=<?=$row["resId"]?>"-->
+        <td>    
             <span>
-            <input type="submit" name="addcar" value="加入購物車" class="btn btn-outline-success btn-sm"/>
+            <input type="submit" name="addcar" <?php if($row["stock"]>0) { echo 'value="加入購物車" class="btn btn-outline-success btn-sm"';}else{echo 'disabled=disabled value="補貨中" class="btn btn-outline-danger btn-sm"';}?>/>
             <input type="hidden" name="hidsub" value="<?=$row["resId"]?>" />
             </span>
         </form>
