@@ -52,7 +52,7 @@ if(isset($_POST["btnOK"]))
     </form>
 <div>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 <div class="tb">
 <table class="table table-dark">
     <thead>

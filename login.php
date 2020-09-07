@@ -101,7 +101,7 @@ if (isset($_POST["btnreg"]))
       }
     </style>
 </head>
-<body>
+<body style="background-color: #c1eff7">
   <!--避免F5又再送一次表單-->
 <script>
     if ( window.history.replaceState )

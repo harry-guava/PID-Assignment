@@ -22,7 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>會員管理</title>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 <table class="table table-dark">
     <thead>
       <tr>

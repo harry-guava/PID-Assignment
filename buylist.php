@@ -4,26 +4,25 @@ require("connect.php");
 if($_SESSION["check"]!=0)
 {
   $memberId = $_GET["id"];
+ 
 }
 else
 {
 $memberId = $_SESSION["memberId"];
+
 }
 
 $tabnum = $_SESSION["tabnum"];
-$serverId = $_SESSION["serverId"];
+
 //var_dump($_SESSION["serverId"]) ;
 //echo $serverId;
 //echo $memberId;
+$serverId= $_SESSION["serverId"];
 
-if($serverId==0)
-{
+
+
+
 $sqll = "select listnumber from orderlist where memberId = $memberId";
-}
-else
-{
-  $sqll = "select listnumber from orderlist where serverId = $serverId";
-}
 
 $sqlls = mysqli_query($link, $sqll);
 
@@ -40,7 +39,7 @@ if(isset($_GET["listshow"]))
 <html lang="en">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>訂單資料</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -103,7 +102,7 @@ if(isset($_GET["listshow"]))
   </style>
 </head>
 
-<body>
+<body style="background-color: #c1eff7">
 
   <script>
     if (window.history.replaceState) {

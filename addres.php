@@ -59,7 +59,7 @@ if (isset($_POST["addres"])) {
     }
 </script>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 <div class="tb">
 <table class="table table-dark">
     <thead>

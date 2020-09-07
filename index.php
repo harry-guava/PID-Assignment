@@ -122,7 +122,7 @@ if(isset($_POST["buycar"]))
     }
   </style>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 
 <script>
    

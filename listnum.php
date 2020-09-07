@@ -78,7 +78,7 @@ $sumre = mysqli_fetch_assoc($sum);
     }
   </style>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 
 <script>
 
