@@ -135,20 +135,21 @@ if(isset($_POST["buycar"]))
 </script>
 <div id = "all">
   <form method="post" class="header" >
-  <h1>黑心購物網</h1>
-  <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
+  <h1><a href="index.php" >黑心購物網</a></h1>
+  <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {echo "登入"; } else { echo"登出";}?></a>
+  <a href = "membermanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) { echo "display:none";}?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
+  <a href = "editmem.php" id= "btneditmem" style="<?php if ($_SESSION["check"] == 1) { echo "display:none";}?>" name="editmem" class = "btn btn-outline-info btn-lg ff">修改個資</a>
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
-  <a href = "membermanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
-  <a href = "editmem.php" id= "btneditmem" name="editmem" class = "btn btn-outline-info btn-lg ff">修改個資</a>
   <a href = "resmanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fn">商品管理</a>
   <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
-    </form>
+  </form>
 <div>
 <div class="tb">
 <table class="table table-dark">
     <thead>
       <tr>
         <th>產品編號</th>
+        <th>圖片</th>
         <th>產品名稱</th>
         <th>價格</th>
         <th>數量</th>
@@ -159,6 +160,7 @@ if(isset($_POST["buycar"]))
     <?php while ($row = mysqli_fetch_assoc($result)) {?>
       <tr>
         <td><?=$row["resId"]?></td>
+        <td style="width:200px"><img style="width:50%"src="resimage/<?=$row["resname"]?>.jpg"/></td>
         <td><?=$row["resname"]?></td>
         <td><?="$" . $row["price"] . "元"?></td>
         <form id="formadd" name="formadd" >

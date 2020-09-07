@@ -1,18 +1,22 @@
 <?php
 session_start();
 require("connect.php");
+if($_SESSION["check"]!=0)
+{
+  $memberId = $_GET["id"];
+}
+else
+{
 $memberId = $_SESSION["memberId"];
-$serverId = $_SESSION["serverId"];
+}
+
 $tabnum = $_SESSION["tabnum"];
 //var_dump($_SESSION["serverId"]) ;
 //echo $serverId;
 //echo $memberId;
-if ($serverId == 0) {
-  $sqll = "select listnumber from orderlist where memberId = $memberId";
 
-} else {
-  $sqll = "select listnumber from orderlist where serverId = $serverId";
-}
+$sqll = "select listnumber from orderlist where memberId = $memberId";
+
 
 $sqlls = mysqli_query($link, $sqll);
 
@@ -101,7 +105,9 @@ if(isset($_GET["listshow"]))
   </script>
   <div id="all">
     <form method="post" class="header">
-      <h1>黑心購物網</h1>
+      <h1>
+      <a href="index.php" >黑心購物網</a>
+      </h1>
       <a href="login.php" class="btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") { ?><?= "登入" ?><?php } else { ?><?= "登出" ?><?php } ?></a>
       <a href="membermange.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) { ?><?= "display:none" ?><?php } ?>" name=btnmember class="btn btn-outline-info btn-lg fm">會員管理</a>
     </form>

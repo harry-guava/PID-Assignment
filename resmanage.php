@@ -19,7 +19,7 @@ $result = mysqli_query($link, $man);
     <title>商品管理</title>
     <div id = "all">
   <form method="post" class="header" >
-  <h1>黑心購物網</h1>
+  <h1><a href="index.php" >黑心購物網</a></h1>
   <a href = "login.php" class = "btn btn-outline-info btn-lg fl" name="btnlogin"><?php if ($user == "guest") {?><?="登入"?><?php } else {?><?="登出"?><?php }?></a>
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermanage.php" id=btnmember name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>

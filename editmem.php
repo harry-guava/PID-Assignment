@@ -13,17 +13,15 @@ if(isset($_POST["editsub"]))
     $adpswd = $_POST["addpswd"];
     $adname = $_POST["addname"];
     $ademail = $_POST["addemail"];
-    $adiden = $_POST["addiden"];
     $adphone = $_POST["addphone"];
     
-    if(trim(($adname&&$adus&&$adpswd&&$ademail&&$adiden&&$adphone)!=""))
+    if(trim(($adname&&$adus&&$adpswd&&$ademail&&$adphone)!=""))
     {
         $sql2 = <<<upt
-        update `member` set `username` ='$adname',`muse`='$adus',`paswd`='$adpswd',`email`='$ademail',`phone`='$adphone',
-        `iden` = '$adiden' where memberId ='$id';
+        update `member` set `username` ='$adname',`muse`='$adus',`paswd`='$adpswd',`email`='$ademail',`phone`='$adphone'
+        where memberId ='$id';
         upt;
         mysqli_query($link,$sql2);
-         
         //echo "$adname<br>$adus<br>$adpswd<br>";
         echo "<script type='text/javascript'>alert('資料修改完成！！');</script>";
         
@@ -49,7 +47,7 @@ if(isset($_POST["cancel"]))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>修改個資</title>
     <style>
         
     </style>
@@ -89,12 +87,6 @@ if(isset($_POST["cancel"]))
     <label for="text5" class="col-2 col-form-label" style="color:green;background-color:pink">手機</label> 
     <div class="col-4 ">
       <input id="addphone" name="addphone" pattern="[0][9]\d{8}" maxlength="10" type="text" class="form-control" value="<?= $row["phone"]?>">
-    </div>
-  </div> 
-  <div class="form-group row">
-    <label for="text6" class="col-2 col-form-label" style="color:purple;background-color:yellow">身分證字號</label> 
-    <div class="col-4 ">
-      <input id="addiden" name="addiden" type="text" pattern="[A-Z][12]\d{8}" maxlength="10" class="form-control" value="<?= $row["iden"]?>">
     </div>
   </div> 
   <div class="form-group row">
