@@ -1,32 +1,39 @@
 <?php
 session_start();
 require "connect.php";
-// if(isset($_POST["submitpic"]))
-// {
 
-// }
 if (isset($_POST["addres"])) {
+
     $adname = $_POST["txtname"];
     $adprice = $_POST["txtprice"];
     $adstock = $_POST["txtstock"];
+    $adtxt =  $_POST["txtdetail"];
     if (trim($adname && $adprice && $adstock) != "") {
 
         $sqlc = "select resname from res";
         $check = mysqli_query($link, $sqlc);
         $recheck = mysqli_fetch_assoc($check);
         if ($adname != $recheck["resname"]) {
-
             if (file_exists("resimage/" . $_FILES["file"]["name"])) {
                 echo '<script>alert("檔案已經重複 請勿上傳同樣的檔案");</script>';
             } else {
-                $sql = "insert into res (resname,price,stock,temp) values
-           ('$adname',$adprice,$adstock,$adstock)";
-                mysqli_query($link, $sql);
+                
                 $filename = $adname;
-
                 rename(($_FILES["file"]["name"]), $filename);
-                move_uploaded_file($_FILES["file"]["tmp_name"], "resimage/" . $filename . ".jpg");
-                echo '<script>alert("新增商品成功！");location.replace("resmanage.php");</script>';
+                if(mb_strlen($adtxt,"utf-8")<40)
+                {
+                  $sql = "insert into res (resname,price,stock,temp,detail) values
+                  ('$adname',$adprice,$adstock,$adstock,'$adtxt')";
+                  mysqli_query($link, $sql);
+                  move_uploaded_file($_FILES["file"]["tmp_name"], "resimage/" . $filename . ".jpg");
+                  echo '<script>alert("新增商品成功！");location.replace("resmanage.php");</script>';
+                }
+                else
+                {
+                  echo '<script>alert("介紹請輸入小於40個字");location.replace("resmanage.php");</script>';
+                }
+
+                
             }
 
         } else {
@@ -60,6 +67,13 @@ if (isset($_POST["addres"])) {
     }
 </script>
 </head>
+<div id="all">
+    <form method="post" class="header">
+      <h1>
+      <a href="index.php" >黑心購物網</a>
+      </h1>
+  </form>
+  </div>
 <body style="background-color: #c1eff7">
 <div class="tb">
 <table class="table table-dark">
@@ -70,19 +84,21 @@ if (isset($_POST["addres"])) {
         <th>商品名稱</th>
         <th>金額</th>
         <th>上架數</th>
+        <th>備註</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <!--enctype="multipart/form-data提交表單不對字元編碼 使表單可把文件中的內容編到html請求中"-->
-        <form  method = "post" enctype="multipart/form-data">
+        <form method = "post" enctype="multipart/form-data">
         <!--this 指向自己 id = "file"-->
-        <td><input style="width:80px" type="file" name = "file" id= "file" onchange="showImg(this)"/></td>
+        <td style = "width: 100px;"><input style="width:80px" type="file" name = "file" id= "file" onchange="showImg(this)"/></td>
         <!--照片預覽功能 設定onchange 當檔案改變後執行showImg-->
-        <td><img id = "showimg" src="" style="display:none;width:50%;"/></td>
-        <td><input type = "text" name="txtname"/></td>
-        <td><input type = "number" oninput="if(value<1)value=1"  name="txtprice"/></td>
-        <td><input type = "number" oninput="if(value<1)value=1" name="txtstock"/></td>
+        <td style = "width: 100px;"><img id = "showimg" src="" style="display:none;width:100%;"/></td>
+        <td style = "width: 100px;"><input type = "text" name="txtname"/></td>
+        <td style = "width:100px;"><input type = "number" oninput="if(value<1)value=1"  name="txtprice"/></td>
+        <td style = "width: 50px;"><input type = "number" oninput="if(value<1)value=1" name="txtstock" style="width:50px;"/></td>
+        <td><textarea name = "txtdetail"></textarea></td>
         <td><input type = "submit" name="addres" id="addres" value="新增"/></td>
         </form>
       </tr>

@@ -24,7 +24,6 @@ $result = mysqli_query($link, $man);
   <a href = "buylist.php" class = "btn btn-outline-info btn-lg fl2" name="btnlist">訂單資料</a>
   <a href = "membermanage.php" id=btnmember name = btnmember class = "btn btn-outline-info btn-lg fm">會員管理</a>
   <a href = "addres.php" id=btnaddres   name = btnaddres class = "btn btn-outline-info btn-lg fn">新增商品</a>
-  <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
     </form>
 <div>
 </head>

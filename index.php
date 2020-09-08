@@ -179,7 +179,7 @@ if (isset($_POST["buycar"])) {
         <a class="collapsed card-link" data-toggle="collapse" href="#<?="demo".$row["resId"]?>">顯示內容</a>
         <div id="<?="demo".$row["resId"]?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-        Lorem ipsum..
+        <?= $row["detail"] ?>
         </div>
         </div>
         </div>

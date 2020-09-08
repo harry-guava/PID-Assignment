@@ -19,7 +19,7 @@ create table res
 (
     `resId` int auto_increment primary key,
     `resname` varchar(30),
-    `detail` varchar(90),
+    `detail` varchar(40),
     `price` int,
     `stock` int,
      `temp` int
@@ -62,7 +62,5 @@ insert into serverlist (serverId,sername,serpaswd) values
 insert into orderlist (num) values (0);
 
 
-insert into res (resname,price,stock,temp) values
-('蘋果',30,100,100),('香蕉',50,70,70);
 
 
