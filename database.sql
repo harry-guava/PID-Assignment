@@ -51,6 +51,8 @@ create table Orderlist
     memberId int,
     serverId int
 );
+insert into res (`resname`,`detail`,`price`,`stock`,`temp`)
+values ('高雄特產','跟著月亮走',888,50,50),('苗栗特產','議員說很多',1000000,5,5),('台灣特產','販賣恐龍無罪',1,1000,1000);
 
 insert into member (muse,paswd,username,phone,email,iden) values
 ('apple','1234','王小明','0988123456','wang88@gmail.com','T123456789'),('wang','4232','大平台','0931123456','bigtai@yahoo.com.tw','F224546789');
