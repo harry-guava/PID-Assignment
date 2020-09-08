@@ -5,10 +5,10 @@
    $man ="Select * from member";
    $result = mysqli_query($link,$man);
    $testid =mysqli_query($link,$man);
-   $rowid = mysqli_fetch_assoc($testid);
-   //var_dump($result);
-   $_SESSION["login"]= $rowid["login"];
-   $login=$_SESSION["login"];
+  //  $rowid = mysqli_fetch_assoc($testid);
+  //  //var_dump($result);
+  //  $_SESSION["login"]= $rowid["login"];
+  //  $login=$_SESSION["login"];
    //echo $login;
 ?>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
 </head>
 <body>
 <div id = "all" class="header">
-<h1>黑心購物網</h1>
+<h1><a href="index.php" >黑心購物網</a></h1>
 </div>
 <table class="table table-dark">
     <thead>

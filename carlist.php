@@ -100,59 +100,7 @@ if (isset($_POST["btnOK"]))
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style type="text/css">
-    .header
-    {
-      height:50px;
-      line-height:80px;
-      width:100%;
-      background-color: #c1eff7;
-      padding-right: 15px;
-      position: fixed;
-      z-index:50;
-    }
-    .car
-    {
-      position:fixed;
-      right:0px;
-      top:50px;
-
-    }
-    .fl
-    {
-      position:fixed;
-      right:0px;
-      top:0px;
-    }
-    .fm
-    {
-      position:fixed;
-      right:75px;
-      top:0px;
-
-    }
-    .fx
-    {
-      position: fixed;
-    }
-    .tb
-    {
-      top:50px;
-      position:relative;
-      z-index:0;
-    }
-    .hh
-    {
-      position: absolute;
-      margin-top:30px;
-    }
-    .hr
-    {
-      position: absolute;
-      margin-top:30px;
-      right:0px;
-    }
-  </style>
+  <link rel=stylesheet type="text/css" href="main.css">
 </head>
 <body style="background-color: #c1eff7">
 
