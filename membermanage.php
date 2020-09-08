@@ -23,7 +23,7 @@
     <link rel=stylesheet type="text/css" href="main.css">
     <title>會員管理</title>
 </head>
-<body>
+<body style="background-color: #c1eff7">
 <div id = "all" class="header">
 <h1><a href="index.php" >黑心購物網</a></h1>
 </div>

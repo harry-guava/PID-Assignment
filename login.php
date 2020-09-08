@@ -25,7 +25,7 @@ if (isset($_POST["btnlogin"]))
         $rowlogin = mysqli_fetch_assoc($result);
         $_SESSION["memberId"] = $rowlogin["memberId"];
         $_SESSION["login"] = $rowlogin["login"];
-        //echo $_SESSION["login"];
+        //判斷是否有此帳號及密碼在資料庫中
         $rownum = mysqli_num_rows($result);
         //echo $rownum;
         
@@ -41,13 +41,14 @@ if (isset($_POST["btnlogin"]))
         $_SESSION["serName"] = $sercheck["sername"];
         if ($sercheck != 0) 
         {
+            //如果有管理者的帳號 將此帳號ID存入session
             $_SESSION["serverId"] = $serid["serverId"];
+            //設定check值 用於判斷首頁是否出現只有管理者才可使用的功能
             $_SESSION["check"] = 1;
         }
-        //echo $sercheck["serverId"];
-        //echo $_SESSION["check"];
+        
         if ($rownum != 0 | $sercheck!=0) 
-        {
+        { //判斷是否有被加入黑名單login為零即可登入
           if ($_SESSION["login"] == 0) 
           {
               header("location: index.php");
@@ -58,7 +59,7 @@ if (isset($_POST["btnlogin"]))
             echo '<script language="javascript">';
             echo 'alert("你已經被加入黑名單")';
             echo '</script>';
-            exit();
+            
           }
         
          } 

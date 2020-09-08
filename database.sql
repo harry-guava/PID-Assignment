@@ -19,6 +19,7 @@ create table res
 (
     `resId` int auto_increment primary key,
     `resname` varchar(30),
+    `detail` varchar(90),
     `price` int,
     `stock` int,
      `temp` int

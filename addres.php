@@ -74,34 +74,36 @@ if (isset($_POST["addres"])) {
     </thead>
     <tbody>
       <tr>
+        <!--enctype="multipart/form-data提交表單不對字元編碼 使表單可把文件中的內容編到html請求中"-->
         <form  method = "post" enctype="multipart/form-data">
-        <!-- <input id="upload" style="display:none" name = "uploadimg" type = "file" onchange="showImg(this)" accept="image/gif, image/jpeg, image/png"/> -->
+        <!--this 指向自己 id = "file"-->
         <td><input style="width:80px" type="file" name = "file" id= "file" onchange="showImg(this)"/></td>
-        <!-- <input type="submit" name="submitpic" value="上傳圖片"/> -->
-        <!-- </form> -->
-
-
-       <!-- <form method = "post"> -->
-        <td><img id="showimg" src="" style="display:none;width:50%;"/></td>
-        <td><input type="text" name="txtname"/></td>
-        <td><input type="number" oninput="if(value<1)value=1"  name="txtprice"/></td>
-        <td><input type="number" oninput="if(value<1)value=1" name="txtstock"/></td>
-        <td><input type="submit" name="addres" id="addres" value="新增"/></td>
+        <!--照片預覽功能 設定onchange 當檔案改變後執行showImg-->
+        <td><img id = "showimg" src="" style="display:none;width:50%;"/></td>
+        <td><input type = "text" name="txtname"/></td>
+        <td><input type = "number" oninput="if(value<1)value=1"  name="txtprice"/></td>
+        <td><input type = "number" oninput="if(value<1)value=1" name="txtstock"/></td>
+        <td><input type = "submit" name="addres" id="addres" value="新增"/></td>
         </form>
       </tr>
     </tbody>
   </table>
 </div>
 <script>
+        //因為input type 被DOM變成object時 有選擇到檔案會將檔案放在test.files陣列中
         function showImg(test) {
       	var file = test.files[0];
 	      if(window.FileReader) {
+        //html 必須提交完表單才會讀取檔案
+        //利用javascript 提供的FileReader
 	    	var fr = new FileReader();
 		  	var showimg = document.getElementById('showimg');
+        //每次選擇完都會執行此事件
 		    fr.onloadend = function(e) {
+        //src為readAsDataURL讀取完的URL
 		    showimg.src = e.target.result;
 	      };
-      	fr.readAsDataURL(file);
+      	fr.readAsDataURL(file);//result屬性多一個data為讀取完成後表示文件數據的URL
 	      showimg.style.display = 'block';}
         }
        </script>

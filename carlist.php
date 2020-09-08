@@ -6,7 +6,6 @@ $serverId = $_SESSION["serverId"];
 //echo $serverId;
 //echo $memberId;
 
-
 if ($_SESSION["serverId"] == 0) {
     $sql = "select * from buycar where memberId = $memberId";
     $sql2 = "select SUM(total) from buycar where memberId = $memberId";
@@ -20,73 +19,72 @@ $total = mysqli_query($link, $sql2);
 $sum = mysqli_fetch_assoc($total);
 $sum1 = $sum["total"];
 $want1 = $sum["want"];
-$test= "select (r.stock - b.want) stockn from res r inner join buycar b on r.resId=b.resId";
-$test1 = mysqli_query($link,$test);
+$test = "select (r.stock - b.want) stockn from res r inner join buycar b on r.resId=b.resId";
+$test1 = mysqli_query($link, $test);
 
-
-if (isset($_POST["btnOK"])) 
-{
-    $listdate = date('Ymd', time());
-    $check = "select num from orderlist order by num DESC limit 1";
-    $check1 = mysqli_query($link, $check);
-    $checknum = mysqli_fetch_assoc($check1);
-    //echo $checknum["num"];
-    //$checkdate = $checknum["listdate"];
-    $n = $checknum["num"] + 1;
-    $listnumber = $listdate . $n;
-    // if ($listnumber == $checkdate . $n) 
-    // {
+if (isset($_POST["btnOK"])) {
+    if ($sum["SUM(total)"] != "") {
+        $listdate = date('Ymd', time());
+        $check = "select num from orderlist order by num DESC limit 1";
+        $check1 = mysqli_query($link, $check);
+        $checknum = mysqli_fetch_assoc($check1);
+        //echo $checknum["num"];
+        //$checkdate = $checknum["listdate"];
+        $n = $checknum["num"] + 1;
+        $listnumber = $listdate . $n;
+        // if ($listnumber == $checkdate . $n)
+        // {
         //echo $listnumber;
-        if ($n != $check["num"]) 
-        {
-          if($serverId==0)
-          {
-            $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,$memberId,$serverId)";
-            $sel = "select listnumber from orderlist where memberId = $memberId order by listnumber DESC limit 1";
-          }
-          else
-          {
-            $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,0,$serverId)";
-            $sel = "select listnumber from orderlist where serverId = $serverId order by listnumber DESC limit 1";
-          }
-          mysqli_query($link, $buylist);
+        if ($n != $check["num"]) {
+            if ($serverId == 0) {
+                $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,$memberId,$serverId)";
+                $sel = "select listnumber from orderlist where memberId = $memberId order by listnumber DESC limit 1";
+            } else {
+                $buylist = "insert into orderlist (num,listnumber,memberId,serverId) values ($n,$listnumber,0,$serverId)";
+                $sel = "select listnumber from orderlist where serverId = $serverId order by listnumber DESC limit 1";
+            }
+            mysqli_query($link, $buylist);
         }
 
-    // } else {
-    //     $x++;
-         $cre = <<< cre1
+        // } else {
+        //     $x++;
+        $cre = <<< cre1
     create table `$listnumber` select * from buycar;
     cre1;
         mysqli_query($link, $cre);
-  //}
-   $sel1 = mysqli_query($link,$sel);
-   $sel2 =mysqli_fetch_assoc($sel1);
-   $tabnum = $sel2["listnumber"];
-   //echo $sel2["listnumber"];
+        //}
+        $sel1 = mysqli_query($link, $sel);
+        $sel2 = mysqli_fetch_assoc($sel1);
+        $tabnum = $sel2["listnumber"];
 
-   //$cre = "create table `$tabnum` select * from buycar;";
+        $trun = "truncate table buycar";
+        mysqli_query($link, $trun);
+        $_SESSION["tabnum"] = $tabnum;
+        $sqlupt = "update res set stock=temp";
+        mysqli_query($link, $sqlupt);
 
-  // mysqli_query($link,$cre);
-  //  $sql="insert into tempcar select * from buycar";
- 
-  //  $sel = "select * from $tabnum";
-  //  $temp=mysqli_query($link,$sel);
-  //  $temp2=mysqli_fetch_assoc($temp);
-  //   $want2=$temp2["want"];
-  //  $total2=$sum;
-  //  if($temp2["resId"]!="")
-  //  {
-  //    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
-  //  }
-   $trun = "truncate table buycar";
-   mysqli_query($link,$trun) ;
-  $_SESSION["tabnum"]=$tabnum;
-  $sqlupt = "update res set stock=temp";
-  mysqli_query($link,$sqlupt);
-  
-  header("Location: index.php");
+        header("Location: index.php");
+    } else {
+        echo '<script>alert("購物車內尚無商品")</script>';
+    }
 }
 
+//echo $sel2["listnumber"];
+
+//$cre = "create table `$tabnum` select * from buycar;";
+
+// mysqli_query($link,$cre);
+//  $sql="insert into tempcar select * from buycar";
+
+//  $sel = "select * from $tabnum";
+//  $temp=mysqli_query($link,$sel);
+//  $temp2=mysqli_fetch_assoc($temp);
+//   $want2=$temp2["want"];
+//  $total2=$sum;
+//  if($temp2["resId"]!="")
+//  {
+//    $sql2="update tempcar set want = $want1,total=$sum1 where resId =$id";
+//  }
 //echo $sum["SUM(total)"];
 //$add = mysqli_query($link, $sql);
 ?>
