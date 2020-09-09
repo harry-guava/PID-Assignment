@@ -65,9 +65,7 @@ if (isset($_POST["btnlogin"]))
          } 
          else 
          {
-         echo '<script language="javascript">';
-         echo 'alert("請輸入正確的帳號或密碼")';
-         echo '</script>';
+         echo '<script>alert("請輸入正確的帳號或密碼");location.replace("login.php");</script>';
          }   
      
     

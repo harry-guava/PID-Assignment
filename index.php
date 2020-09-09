@@ -20,6 +20,7 @@ $add = mysqli_query($link, $sql);
 $car = mysqli_fetch_assoc($add);
 //var_dump($result);
 $resname = $car["resname"];
+echo $_SESSION["memberId"];
 if (isset($_GET["addcar"])) {
     if (($_SESSION["memberId"] != 0) | ($_SESSION["check"] != 0)) {
         $addbuy = $_GET["number"];
@@ -159,17 +160,6 @@ if (isset($_POST["buycar"])) {
     <tbody>
 
     <?php while ($row = mysqli_fetch_assoc($result)) {?>
-      <!-- <script>
-        $(document).ready(function(){
-          $('#hiddenbox').hide();
-
-          $('a#<?="showres" . $row["resId"]?>').click(function()
-          {
-            $('#hiddenbox').slideToggle(400);
-            return false;
-          });
-        });
-      </script> -->
         <tr>
         <td style ="width100px;"><?=$row["resId"]?></td>
         <td>
@@ -184,7 +174,6 @@ if (isset($_POST["buycar"])) {
         </div>
         </div>
         </td>
-        <!-- <div id = "hiddenbox" style ="display:none;">你好嗎</div> -->
         <td style = "width:200px;"><img style="width:50%;height:50px"src="resimage/<?=$row["resname"]?>.jpg"/></td>
         <td style = "color:yellow"><?=$row["resname"]?></td>
         <td style = "color:red"><?="$" . $row["price"] . "元"?></td>
