@@ -55,72 +55,7 @@ if (isset($_POST["buycar"])) {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <style type="text/css">
-    .header
-    {
-      height:50px;
-      line-height:80px;
-      width:100%;
-      background-color: #c1eff7;
-      padding-right: 15px;
-      position: fixed;
-      z-index:50;
-    }
-    .car
-    {
-      position:fixed;
-      right:0px;
-      top:50px;
-
-    }
-    .fl
-    {
-      position:fixed;
-      right:0px;
-      top:0px;
-    }
-    .fm
-    {
-      position:fixed;
-      right:75px;
-      top:0px;
-
-    }
-    .fx
-    {
-      position: fixed;
-    }
-    .tb
-    {
-      top:50px;
-      position:relative;
-      z-index:0;
-    }
-    .fl2
-    {
-      position:fixed;
-      right:190px;
-      top:0px;
-    }
-    .fn
-    {
-      position:fixed;
-      right:305px;
-      top:0px;
-    }
-    .ff
-    {
-      position:fixed;
-      right:75px;
-      top:0px;
-    }
-    #hiddenbox
-    {
-      width:300px;
-      height:80px;
-      background-color: #ddd;
-    }
-  </style>
+  <link rel=stylesheet type="text/css" href="main.css">
 </head>
 <body style="background-color: #c1eff7">
 
@@ -143,9 +78,39 @@ if (isset($_POST["buycar"])) {
   <a href = "resmanage.php" id=btnmember style="<?php if ($_SESSION["check"] == 0) {?><?="display:none"?><?php }?>" name = btnmember class = "btn btn-outline-info btn-lg fn">商品管理</a>
   <input type="submit" id="buycar" name="buycar" value="購物車" class="car"/>
   </form>
-<div>
-<div class="tb">
-<table class="table table-dark">
+
+<div class = "tb">
+  <div class = "wrapper">
+    <?php while ($row = mysqli_fetch_assoc($result)) {?>
+    <div style="position:relative">
+      <img class="object-fit object-fit_cover" style="width:40%;height:100%;" src="resimage/<?=$row["resname"]?>.jpg"/>
+      <div style="position:absolute;top:10%;left:46%;font-size:25px"><?=$row["resname"]?></div>
+      <div style="position:absolute;left:46%;top:25%;">價格:<?="$" . $row["price"] . "元"?></div>
+      <div id="accordion">
+        <div class="card text-black bg-success "style="width:50%;position:absolute;left:46%;top:35%" >
+          <div class="card-header">
+            <a class="collapsed card-link" data-toggle="collapse" href="#<?="demo" . $row["resId"]?>">產品介紹</a>
+              <div id="<?="demo" . $row["resId"]?>" class="collapse" data-parent="#accordion">
+                <div class="card-body" style="z-index: 999;"><?=$row["detail"]?></div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <form name="formadd">
+      <div style="position:absolute;left:46%;top:58%;z-index:-1"><input <?php if ($row["stock"] == 0) {echo "disabled= disabled";}?>name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" max ="<?=$row["stock"]?>"style ="width:50px"/>
+      庫存:<?=$row["stock"]?>
+      </div>
+      <div style="position:absolute;left:46%;top:73%;">
+        <input type="submit" name="addcar" <?php if ($row["stock"] > 0) {echo 'value="加入購物車" class="btn btn-outline-success btn-sm"';} else {echo 'disabled=disabled value="補貨中" class="btn btn-outline-danger btn-sm"';}?>/>
+        <input type="hidden" name="hidsub" value="<?=$row["resId"]?>" />
+      </div>
+      </form>
+    </div>
+    <?php }?>
+    </div>
+</div>
+
+<!-- <table class="table table-dark">
     <thead>
       <tr>
         <th>產品編號</th>
@@ -166,10 +131,10 @@ if (isset($_POST["buycar"])) {
         <div id="accordion">
         <div class="card text-white bg-dark mb-3">
         <div class="card-header">
-        <a class="collapsed card-link" data-toggle="collapse" href="#<?="demo".$row["resId"]?>">顯示內容</a>
-        <div id="<?="demo".$row["resId"]?>" class="collapse" data-parent="#accordion">
+        <a class="collapsed card-link" data-toggle="collapse" href="#<?="demo" . $row["resId"]?>">顯示內容</a>
+        <div id="<?="demo" . $row["resId"]?>" class="collapse" data-parent="#accordion">
         <div class="card-body">
-        <?= $row["detail"] ?>
+        <?=$row["detail"]?>
         </div>
         </div>
         </div>
@@ -191,7 +156,7 @@ if (isset($_POST["buycar"])) {
       </tr>
     <?php }?>
     </tbody>
-  </table>
+  </table> -->
 </div>
 </body>
 </html>
