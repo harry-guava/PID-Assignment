@@ -100,7 +100,7 @@ if (isset($_POST["buycar"])) {
       <div style="position:absolute;left:46%;top:58%;z-index:-1"><input <?php if ($row["stock"] == 0) {echo "disabled= disabled";}?>name="number" id="number" type="number" value=1 oninput="if(value<1)value=1" max ="<?=$row["stock"]?>"style ="width:50px"/>
       庫存:<?=$row["stock"]?>
       </div>
-      <div style="position:absolute;left:46%;top:73%;">
+      <div style="position:absolute;left:46%;top:73%;z-index:-1">
         <input type="submit" name="addcar" <?php if ($row["stock"] > 0) {echo 'value="加入購物車" class="btn btn-outline-success btn-sm"';} else {echo 'disabled=disabled value="補貨中" class="btn btn-outline-danger btn-sm"';}?>/>
         <input type="hidden" name="hidsub" value="<?=$row["resId"]?>" />
       </div>
